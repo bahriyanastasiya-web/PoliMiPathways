@@ -1,44 +1,30 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { GraduationCap } from "lucide-react";
 
 export function Navbar() {
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
 
   const linkClass = (path: string) =>
-    `relative text-sm font-medium transition-colors duration-200 ${
-      isActive(path)
-        ? "text-foreground"
-        : "text-muted-foreground hover:text-foreground"
+    `text-sm font-semibold tracking-wide transition-opacity duration-150 ${
+      isActive(path) ? "opacity-100 underline underline-offset-4" : "opacity-70 hover:opacity-100"
     }`;
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
-        <Link to="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
-          <GraduationCap className="h-5 w-5 text-primary" />
-          <span className="text-sm font-semibold tracking-tight text-foreground">
-            Pathway
+    <nav className="sticky top-0 z-50 w-full bg-lime">
+      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
+        <Link to="/" className="transition-opacity hover:opacity-75">
+          <span className="text-sm font-bold uppercase tracking-widest text-foreground">
+            PoliMi Pathways
           </span>
         </Link>
 
         <div className="hidden items-center gap-8 md:flex">
-          <Link to="/" className={linkClass("/")}>
-            Home
-          </Link>
-          <Link to="/explore" className={linkClass("/explore")}>
-            Explore Paths
-          </Link>
-          <Link to="/test" className={linkClass("/test")}>
-            Test
-          </Link>
-          <Link to="/profile" className={linkClass("/profile")}>
-            Profile
-          </Link>
-        </div>
-
-        <div className="md:hidden">
-          {/* Mobile menu could be added here; keeping minimal for now */}
+          <Link to="/" className={linkClass("/")}>Home</Link>
+          <Link to="/explore" className={linkClass("/explore")}>Explore Paths</Link>
+          <Link to="/bachelors" className={linkClass("/bachelors")}>Bachelors</Link>
+          <Link to="/masters" className={linkClass("/masters")}>Masters</Link>
+          <Link to="/test" className={linkClass("/test")}>Career Test</Link>
+          <Link to="/profile" className={linkClass("/profile")}>Profile</Link>
         </div>
       </div>
     </nav>

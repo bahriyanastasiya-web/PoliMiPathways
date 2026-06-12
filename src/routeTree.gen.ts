@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TestRouteImport } from './routes/test'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as MastersRouteImport } from './routes/masters'
 import { Route as ExploreRouteImport } from './routes/explore'
+import { Route as BachelorsRouteImport } from './routes/bachelors'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TestRoute = TestRouteImport.update({
@@ -24,9 +26,19 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MastersRoute = MastersRouteImport.update({
+  id: '/masters',
+  path: '/masters',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExploreRoute = ExploreRouteImport.update({
   id: '/explore',
   path: '/explore',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BachelorsRoute = BachelorsRouteImport.update({
+  id: '/bachelors',
+  path: '/bachelors',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -37,34 +49,49 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bachelors': typeof BachelorsRoute
   '/explore': typeof ExploreRoute
+  '/masters': typeof MastersRoute
   '/profile': typeof ProfileRoute
   '/test': typeof TestRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bachelors': typeof BachelorsRoute
   '/explore': typeof ExploreRoute
+  '/masters': typeof MastersRoute
   '/profile': typeof ProfileRoute
   '/test': typeof TestRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bachelors': typeof BachelorsRoute
   '/explore': typeof ExploreRoute
+  '/masters': typeof MastersRoute
   '/profile': typeof ProfileRoute
   '/test': typeof TestRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/explore' | '/profile' | '/test'
+  fullPaths: '/' | '/bachelors' | '/explore' | '/masters' | '/profile' | '/test'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/explore' | '/profile' | '/test'
-  id: '__root__' | '/' | '/explore' | '/profile' | '/test'
+  to: '/' | '/bachelors' | '/explore' | '/masters' | '/profile' | '/test'
+  id:
+    | '__root__'
+    | '/'
+    | '/bachelors'
+    | '/explore'
+    | '/masters'
+    | '/profile'
+    | '/test'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BachelorsRoute: typeof BachelorsRoute
   ExploreRoute: typeof ExploreRoute
+  MastersRoute: typeof MastersRoute
   ProfileRoute: typeof ProfileRoute
   TestRoute: typeof TestRoute
 }
@@ -85,11 +112,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/masters': {
+      id: '/masters'
+      path: '/masters'
+      fullPath: '/masters'
+      preLoaderRoute: typeof MastersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/explore': {
       id: '/explore'
       path: '/explore'
       fullPath: '/explore'
       preLoaderRoute: typeof ExploreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bachelors': {
+      id: '/bachelors'
+      path: '/bachelors'
+      fullPath: '/bachelors'
+      preLoaderRoute: typeof BachelorsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -104,10 +145,22 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BachelorsRoute: BachelorsRoute,
   ExploreRoute: ExploreRoute,
+  MastersRoute: MastersRoute,
   ProfileRoute: ProfileRoute,
   TestRoute: TestRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

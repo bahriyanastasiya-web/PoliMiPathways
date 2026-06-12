@@ -12,7 +12,7 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Pathway — Find your career path after university" },
+      { title: "PoliMiPathways — Find your career path after university" },
       {
         name: "description",
         content:
@@ -20,7 +20,7 @@ export const Route = createFileRoute("/")({
       },
       {
         property: "og:title",
-        content: "Pathway — Find your career path after university",
+        content: "PoliMiPathways — Find your career path after university",
       },
       {
         property: "og:description",
@@ -67,24 +67,33 @@ function Index() {
           <p className="text-center text-sm font-medium uppercase tracking-widest text-muted-foreground">
             How it works
           </p>
-          <div className="mt-12 grid gap-8 sm:grid-cols-3">
-            <StepCard
+          <div className="mt-12 flex flex-col items-start gap-8 sm:flex-row sm:items-start">
+            <RoadmapStep
               step="01"
               icon={<Map className="h-5 w-5" />}
               title="Choose your path"
               description="Select your degree or field of study to get started."
             />
-            <StepCard
+            <div className="hidden h-px w-full flex-1 translate-y-5 bg-border/60 sm:block" />
+            <RoadmapStep
               step="02"
               icon={<Compass className="h-5 w-5" />}
               title="Discover careers"
               description="Explore roles that match your background and interests."
             />
-            <StepCard
+            <div className="hidden h-px w-full flex-1 translate-y-5 bg-border/60 sm:block" />
+            <RoadmapStep
               step="03"
               icon={<BookOpen className="h-5 w-5" />}
               title="Learn the skills"
               description="See what skills you need and how to develop them."
+            />
+            <div className="hidden h-px w-full flex-1 translate-y-5 bg-border/60 sm:block" />
+            <RoadmapStep
+              step="04"
+              icon={<ArrowRight className="h-5 w-5" />}
+              title="Ready to apply"
+              description="Step into the job market with confidence and a clear plan."
             />
           </div>
         </div>
@@ -107,7 +116,7 @@ function Index() {
               icon={<GraduationCap className="h-5 w-5" />}
               title="I'm choosing my master's degree"
               description="Compare how different degrees open doors to specific career paths."
-              to="/explore"
+              to="/masters"
             />
             <UseCaseCard
               icon={<ListChecks className="h-5 w-5" />}
@@ -122,14 +131,14 @@ function Index() {
       {/* Footer */}
       <footer className="border-t border-border/60">
         <div className="mx-auto max-w-5xl px-6 py-8 text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Pathway. All rights reserved.
+          © {new Date().getFullYear()} PoliMiPathways. All rights reserved.
         </div>
       </footer>
     </main>
   );
 }
 
-function StepCard({
+function RoadmapStep({
   step,
   icon,
   title,
@@ -141,17 +150,17 @@ function StepCard({
   description: string;
 }) {
   return (
-    <div className="group relative rounded-xl border border-border/60 bg-card p-6 transition-all duration-200 hover:border-primary/30 hover:shadow-sm">
-      <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-border/60 bg-secondary text-secondary-foreground transition-colors duration-200 group-hover:border-primary/20 group-hover:bg-primary/5 group-hover:text-primary">
+    <div className="flex w-full flex-col items-center text-center sm:w-48 sm:shrink-0">
+      <div className="flex h-12 w-12 items-center justify-center rounded-full border border-border/60 bg-secondary text-secondary-foreground">
         {icon}
       </div>
-      <span className="absolute right-5 top-5 text-xs font-semibold text-muted-foreground/60">
+      <span className="mt-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground/60">
         {step}
       </span>
-      <h3 className="mt-5 text-base font-semibold tracking-tight text-foreground">
+      <h3 className="mt-1 text-base font-semibold tracking-tight text-foreground">
         {title}
       </h3>
-      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+      <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
         {description}
       </p>
     </div>
