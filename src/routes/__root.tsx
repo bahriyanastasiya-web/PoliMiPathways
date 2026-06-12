@@ -86,6 +86,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Pathway" },
+      { name: "twitter:title", content: "Pathway — Find your career path after university" },
+      { name: "twitter:description", content: "Discover jobs, required skills, and how to get there after graduation." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/0355308e-2e34-47e6-bcc2-982a610c22a6/id-preview-5b3111ca--c4f21543-2c74-4c24-909c-40730d5bfecc.lovable.app-1781252274621.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/0355308e-2e34-47e6-bcc2-982a610c22a6/id-preview-5b3111ca--c4f21543-2c74-4c24-909c-40730d5bfecc.lovable.app-1781252274621.png" },
     ],
     links: [
       {
